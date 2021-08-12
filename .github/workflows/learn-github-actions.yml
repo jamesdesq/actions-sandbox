@@ -15,19 +15,16 @@ name: Manually triggered workflow
 on:
   workflow_dispatch:
     inputs:
-      name:
-        description: 'Person to greet'
+      appname:
+        description: 'Name of the app you want to build'
         required: true
-        default: 'Mona the Octocat'
-      home:
-        description: 'location'
-        required: false
-        default: 'The Octoverse'
+        default: 'my_new_app'
 
 jobs:
   say_hello:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "Hello ${{ github.event.inputs.name }}!"
-          echo "- in ${{ github.event.inputs.home }}!"
+          echo "Hello ${{ github.event.inputs.appname }}!"
+      - run: npm install -g @angular/cli
+      - run: ng new ${{ github.event.inputs.appname }}
